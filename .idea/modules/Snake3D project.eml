@@ -1,4 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<component jdk="11" jdk_type="JavaSDK">
-	<contentEntry url="file://$MODULE_DIR$/../.."/>
+<component LANGUAGE_LEVEL="JDK_19" inheritJdk="true">
+	<output-test url="file://$MODULE_DIR$/../../target/scala-3.2.2/test-classes"/>
+	<contentEntry url="file://$MODULE_DIR$/../..">
+		<testFolder url="file://$MODULE_DIR$/../../src/test/scala"/>
+		<excludeFolder url="file://$MODULE_DIR$/../../target"/>
+	</contentEntry>
+	<levels>
+		<level name="sbt: org.openjfx:javafx-base:19:jar" value="project"/>
+		<level name="sbt: org.openjfx:javafx-base:19:mac-aarch64:jar" value="project"/>
+		<level name="sbt: org.openjfx:javafx-controls:19:jar" value="project"/>
+		<level name="sbt: org.openjfx:javafx-controls:19:mac-aarch64:jar" value="project"/>
+		<level name="sbt: org.openjfx:javafx-fxml:19:jar" value="project"/>
+		<level name="sbt: org.openjfx:javafx-fxml:19:mac-aarch64:jar" value="project"/>
+		<level name="sbt: org.openjfx:javafx-graphics:19:jar" value="project"/>
+		<level name="sbt: org.openjfx:javafx-graphics:19:mac-aarch64:jar" value="project"/>
+		<level name="sbt: org.openjfx:javafx-media:19:jar" value="project"/>
+		<level name="sbt: org.openjfx:javafx-media:19:mac-aarch64:jar" value="project"/>
+		<level name="sbt: org.openjfx:javafx-swing:19:jar" value="project"/>
+		<level name="sbt: org.openjfx:javafx-swing:19:mac-aarch64:jar" value="project"/>
+		<level name="sbt: org.openjfx:javafx-web:19:jar" value="project"/>
+		<level name="sbt: org.openjfx:javafx-web:19:mac-aarch64:jar" value="project"/>
+		<level name="sbt: org.scala-lang:scala-library:2.13.10:jar" value="project"/>
+		<level name="sbt: org.scala-lang:scala3-library_3:3.2.2:jar" value="project"/>
+		<level name="sbt: org.scalafx:scalafx_3:19.0.0-R30:jar" value="project"/>
+	</levels>
 </component>
