@@ -1,0 +1,9 @@
+
+Changed the camera of MyApplication to perspective.
+Added classes 'Food' and 'Snake'.
+Having a couple of problems/errors in Object MyApplication and class 'Snake'.
+
+MyApplication: Lines 45-51 and lines 91-104 are giving me problems and warnings.
+Snake: Lines 40-44 and line 161 are giving me errors.
+
+I don't know how to fix these, and I am stuck. I hope you could help me and correct them.
