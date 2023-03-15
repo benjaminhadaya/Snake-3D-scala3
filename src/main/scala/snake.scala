@@ -35,7 +35,7 @@ class Snake(startingX: Int, startingY: Int, startingZ: Int, gridSize: Int, boxSi
       material = new PhongMaterial(Color.Green)
     }
   )
-  
+
   // Lines 40-44 Giving me problems
   val food = new Food(gridSize, boxSize)
   val pane = new Pane()
@@ -155,11 +155,11 @@ class Snake(startingX: Int, startingY: Int, startingZ: Int, gridSize: Int, boxSi
 
     // Check for collisions with the food
     if head.translateX.value == food.translateX.value && head.translateY.value == food.translateY.value && head.translateZ.value == food.translateZ.value then
-      
+
       // Line 159 giving me problems...
       // Update the position of the food
-      food.updatePosition(snake)
-     
+      food.updatePosition(this)
+
       // Add a new box to the end of the snake's body
       val newBox = new Box(boxSize, boxSize, boxSize) {
         translateX = lastX

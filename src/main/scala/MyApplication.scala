@@ -23,6 +23,7 @@ object MyApplication extends JFXApp3:
 
   def start(): Unit =
 
+
     val boxes = for
       x <- 0 until gridSize
       y <- 0 until gridSize
@@ -39,16 +40,16 @@ object MyApplication extends JFXApp3:
       children = boxes
     }
 
-    
-    // Lines 45-51 are giving me problems. 
-    
-    // Adding the snake
-    val snake = new Snake(5, 5, 5, gridSize, boxSize)
-    snake.addToScene(group, food)
+
+    // Lines 45-51 are giving me problems.
 
     // Adding the food
     val food = new Food(gridSize, boxSize)
     food.addToScene(group)
+
+    // Adding the snake
+    val snake = new Snake(5, 5, 5, gridSize, boxSize)
+    snake.addToScene(group, food)
 
     // Initialize camera position and rotation
     camera.translateZ = -cameraDistance
@@ -93,6 +94,8 @@ object MyApplication extends JFXApp3:
       //
       // I don't know what is worng with lines "91-104" since it's not an error but a warning. VSCode says it's alright but Intelij does not.
       // "Scala compiler will replace this argument list with tuple" I guess there is a syntax error between scala 3 and scala 2 I can't figure out what is the problem?
+      myScene.setCamera(camera)
+      val gameLoop = AnimationTimer((nsnow) => {
       myScene.setOnKeyPressed { e =>
         snake.handleKeyEvent1(e)
         if e.getCode == KeyCode.Left then
@@ -107,4 +110,20 @@ object MyApplication extends JFXApp3:
         camera.translateX = cameraX
         camera.translateY = cameraY
       }
+    })
+
+      gameLoop.start()
+
+  start()
+
+
+
+      // Gameloop
+      // Variable AnimationTimer = Gameloop
+      // methods start and stop
+      // val gameLoop = AnimationTimer( => {changes})
+
+
+
+
 
