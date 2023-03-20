@@ -1,14 +1,16 @@
 import scalafx.application.JFXApp3
-import scalafx.beans.property.ObjectProperty
 import scalafx.scene.{PerspectiveCamera,Scene}
 import scalafx.scene.input.KeyCode
+import scalafx.scene.input.KeyEvent
 import scalafx.scene.layout.Pane
 import scalafx.scene.paint.Color
 import scalafx.scene.paint.PhongMaterial
 import scalafx.scene.shape.Box
 import scalafx.scene.transform.Rotate
 import scalafx.scene.Camera
+import scalafx.scene.PointLight
 import scalafx.animation.AnimationTimer
+import scalafx.Includes.eventClosureWrapperWithParam
 import scalafx.Includes.jfxKeyEvent2sfx
 
 object MyApplication extends JFXApp3:
@@ -16,13 +18,19 @@ object MyApplication extends JFXApp3:
   // Box, grid, camera...
   val boxSize = 50
   val gridSize = 10
-  val camera = new PerspectiveCamera(false)
-  val cameraDistance = 1000
+  val camera = new PerspectiveCamera(false) {
+    fieldOfView = 45
+  }
+  val cameraDistance = 800
   var cameraX = 0.0
   var cameraY = 0.0
 
   def start(): Unit =
 
+    stage = new JFXApp3.PrimaryStage:
+      title = "Snake3D"
+      width = 1400
+      height = 800
 
     val boxes = for
       x <- 0 until gridSize
@@ -33,15 +41,30 @@ object MyApplication extends JFXApp3:
         translateX = x * boxSize
         translateY = y * boxSize
         translateZ = z * boxSize
-        material = new PhongMaterial(Color.Gray)
+        material = new PhongMaterial{
+          diffuseColor = Color.Grey
+        }
       }
 
     val group = new Pane {
       children = boxes
     }
 
+    // Add the PointLight to the group
+    val light = new PointLight {
+      color = Color.White
+      translateX = boxSize * gridSize / 2
+      translateY = boxSize * gridSize / 2
+      translateZ = -boxSize * gridSize / 2
+    }
+    group.children.add(light)
 
-    // Lines 45-51 are giving me problems.
+
+    val myScene = new Scene{
+      content = group
+    }
+
+    stage.scene = myScene
 
     // Adding the food
     val food = new Food(gridSize, boxSize)
@@ -51,79 +74,86 @@ object MyApplication extends JFXApp3:
     val snake = new Snake(5, 5, 5, gridSize, boxSize)
     snake.addToScene(group, food)
 
+    val initialRotationX = 30.0
+    val initialRotationY = 45.0
+
     // Initialize camera position and rotation
     camera.translateZ = -cameraDistance
     cameraX = group.translateX() + (boxSize * gridSize / 2)
-    cameraY = group.translateY() + (boxSize * gridSize / 2)
+    cameraY = group.translateY() + (boxSize * gridSize * 0.7)
     camera.translateX = cameraX
     camera.translateY = cameraY
 
-    // Rotate the camera to look at the center of the scene
-    val lookAt = group.localToScene(boxSize * gridSize / 2, boxSize * gridSize / 2, boxSize * gridSize / 2)
-    val dx = lookAt.getX - cameraX
-    val dy = lookAt.getY - cameraY
-    val dz = lookAt.getZ - camera.translateZ.value
-    val angleX = math.atan2(dy, dz)
-    val angleY = math.atan2(dx, dz)
-    camera.setRotationAxis(Rotate.XAxis)
-    camera.rotate = angleX.toDegrees
-    camera.setRotationAxis(Rotate.YAxis)
-    camera.rotate = angleY.toDegrees
+    val cameraRotationX = new Rotate(initialRotationX, Rotate.XAxis)
+    val cameraRotationY = new Rotate(initialRotationY, Rotate.YAxis)
+
+    camera.transforms.addAll(cameraRotationX, cameraRotationY)
+
+     // Move the camera to look at the center of the scene
+    val centerX = boxSize * gridSize / 2
+    val centerY = boxSize * gridSize / 2
+    val centerZ = boxSize * gridSize / 2
+
+    val dx = centerX - camera.translateX.value
+    val dy = centerY - camera.translateY.value
+    val dz = centerZ - camera.translateZ.value
+
+    val distance = math.sqrt(dx * dx + dy * dy + dz * dz)
+    val angleX = math.atan2(dy, dz) * (180 / math.Pi)
+    val angleY = math.atan2(dx, dz) * (180 / math.Pi)
+
+    camera.rotationAxis = Rotate.XAxis
+    camera.rotate = angleX
+    camera.rotationAxis = Rotate.YAxis
+    camera.rotate = camera.rotate() + angleY // set the rotate property explicitly by adding the angle
 
     // Translate the group into the middle of the screen
     // Note that the point being moved to the middle is the upper left corner of the object
     // Therefore we have to move it back by half the width of the group.
-    group.translateXProperty().set(1400 / 2 - boxSize * gridSize / 2)
-    group.translateYProperty().set(800 / 2 - boxSize * gridSize / 2)
-
-    stage = new JFXApp3.PrimaryStage:
-      title = "Snake3D"
-      width = 1400
-      height = 800
-      val myScene = new Scene(
-        group,
-        width(),
-        height(),
-        Color.rgb(255, 255, 255),
-      )
+    group.translateXProperty().bind(stage.width.divide(2).subtract(boxSize * gridSize / 2))
+    group.translateYProperty().bind(stage.height.divide(2).subtract(boxSize * gridSize / 2))
 
       // Set the camera of the scene to a perspective camera object
       myScene.setCamera(camera)
 
-      // Define a setOnKeyPressed event handler that listens for arrow key events and updates the snake's movement direction and the camera position
-      //
-      // I don't know what is worng with lines "91-104" since it's not an error but a warning. VSCode says it's alright but Intelij does not.
-      // "Scala compiler will replace this argument list with tuple" I guess there is a syntax error between scala 3 and scala 2 I can't figure out what is the problem?
-      myScene.setCamera(camera)
-      val gameLoop = AnimationTimer((nsnow) => {
-      myScene.setOnKeyPressed { e =>
-        snake.handleKeyEvent1(e)
-        if e.getCode == KeyCode.Left then
-          cameraX -= 10
-        else if e.getCode == KeyCode.Right then
-          cameraX += 10
-        else if e.getCode == KeyCode.Up then
-          cameraY -= 10
-        else if e.getCode == KeyCode.Down then
-          cameraY += 10
+      // Define the direction variable
+      var direction: (Int, Int, Int) = (0, 0, 0)
 
-        camera.translateX = cameraX
-        camera.translateY = cameraY
+      // Handle key events
+      myScene.onKeyPressed = (event: KeyEvent) => {
+        event.code match {
+          case KeyCode.Up => direction = (0, 0, -1)
+          case KeyCode.Down => direction = (0, 0, 1)
+          case KeyCode.Left => direction = (-1, 0, 0)
+          case KeyCode.Right => direction = (1, 0, 0)
+          case _ => ()
+        }
       }
-    })
 
+      // Create the game loop AnimationTimer
+      val frameDelay = 180000000L // 180 ms delay
+      var previousTime = 0L
+
+      // Create the game loop AnimationTimer
+      lazy val gameLoop: AnimationTimer = AnimationTimer((now) => {
+        if now - previousTime >= frameDelay then
+
+        // Move the snake in the current direction
+          val (dx, dy, dz) = direction
+          if dx != 0 || dy != 0 || dz != 0 then
+          snake.move1(dx, dy, dz)
+
+          // Update previousTime
+          previousTime = now
+
+          // Check if the game is over
+          if snake.isGameOver then
+            gameLoop.stop()
+            println("Game Over")
+
+        // game logic, update and rendering goes here
+
+      })
+
+      // Start the game loop
       gameLoop.start()
-
-  start()
-
-
-
-      // Gameloop
-      // Variable AnimationTimer = Gameloop
-      // methods start and stop
-      // val gameLoop = AnimationTimer( => {changes})
-
-
-
-
-

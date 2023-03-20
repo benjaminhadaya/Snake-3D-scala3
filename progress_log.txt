@@ -17,3 +17,12 @@ Second commit 1.3.: (and 7.3. addad progress_log)
     Corrected the errors in snake class and MyApplication object.
     Added start of gameloop
     Not running the application due to some errors when run.
+
+
+
+  Fourth commit 20.3.
+    Updated AnimationTimer and tried to make camera good.
+    Now the snake moves somehow and no errors.
+    The biggest problem is with the grid and the camera. There's no way I can make it look decent. It looks so laggy.
+    I can't really make progress with my work, as I have some good ideas to continue the project, but I just can't get the grid and camera right. I've tried myself, looked at the model project, YouTube and information on the internet, but it doesn't open up for me.
+    I hope you could help.

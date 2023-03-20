@@ -36,7 +36,6 @@ class Snake(startingX: Int, startingY: Int, startingZ: Int, gridSize: Int, boxSi
     }
   )
 
-  // Lines 40-44 Giving me problems
   val food = new Food(gridSize, boxSize)
   val pane = new Pane()
 
@@ -54,19 +53,6 @@ class Snake(startingX: Int, startingY: Int, startingZ: Int, gridSize: Int, boxSi
     pane.children.add(scoreText)
 
 
-  // Move the snake in the direction of the arrow key pressed
-  def handleKeyEvent(event: KeyEvent): Unit =
-    event.code match {
-      case KeyCode.Up =>
-        this.body.foreach(box => box.translateZ.value -= boxSize)
-      case KeyCode.Down =>
-        this.body.foreach(box => box.translateZ.value += boxSize)
-      case KeyCode.Left =>
-        this.body.foreach(box => box.translateX.value -= boxSize)
-      case KeyCode.Right =>
-        this.body.foreach(box => box.translateX.value += boxSize)
-      case _ =>
-    }
 
   // Move the snake by one step
   @targetName("moveBody")
@@ -109,33 +95,19 @@ class Snake(startingX: Int, startingY: Int, startingZ: Int, gridSize: Int, boxSi
     head.translateZ.value = z * boxSize
 
 
-  // Move the snake in the direction of the arrow key pressed
-  @targetName("handleKeyEvent1")
-  def handleKeyEvent1(event: KeyEvent): Unit =
-    event.code match {
-      case KeyCode.Up =>
-        z = math.max(0, z - 1)
-        updateBody()
-      case KeyCode.Down =>
-        z = math.min(gridSize - 1, z + 1)
-        updateBody()
-      case KeyCode.Left =>
-        x = math.max(0, x - 1)
-        updateBody()
-      case KeyCode.Right =>
-        x = math.min(gridSize - 1, x + 1)
-        updateBody()
-      case _ =>
-    }
-
   // Move the snake by one step
   @targetName("move1")
-  def move1(): Unit =
+  def move1(dx: Int, dy: Int, dz: Int): Unit =
     // Save the current position of the last body part
     val lastPart = body.last
     val lastX = lastPart.translateX.value
     val lastY = lastPart.translateY.value
     val lastZ = lastPart.translateZ.value
+
+    // Update head position based on given direction
+    x += dx
+    y += dy
+    z += dz
 
     // Move the body parts one step forward
     body.tail.zip(body.init).foreach { case (part, prevPart) =>
@@ -156,7 +128,6 @@ class Snake(startingX: Int, startingY: Int, startingZ: Int, gridSize: Int, boxSi
     // Check for collisions with the food
     if head.translateX.value == food.translateX.value && head.translateY.value == food.translateY.value && head.translateZ.value == food.translateZ.value then
 
-      // Line 159 giving me problems...
       // Update the position of the food
       food.updatePosition(this)
 
