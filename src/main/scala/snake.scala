@@ -52,35 +52,6 @@ class Snake(startingX: Int, startingY: Int, startingZ: Int, gridSize: Int, boxSi
     }
     pane.children.add(scoreText)
 
-
-
-  // Move the snake by one step
-  @targetName("moveBody")
-  def move(): Unit =
-    // Save the current position of the last body part
-    val lastPart = body.last
-    val lastX = lastPart.translateX.value
-    val lastY = lastPart.translateY.value
-    val lastZ = lastPart.translateZ.value
-
-    // Move the body parts one step forward
-    body.tail.zip(body.init).foreach { case (part, prevPart) =>
-      part.translateX.value = prevPart.translateX.value
-      part.translateY.value = prevPart.translateY.value
-      part.translateZ.value = prevPart.translateZ.value
-    }
-
-    // Move the head to the next position
-    val head = body.head
-    head.translateX.value = x * boxSize
-    head.translateY.value = y * boxSize
-    head.translateZ.value = z * boxSize
-
-    // Update the position of the last body part to the previous position of the head
-    lastPart.translateX.value = lastX
-    lastPart.translateY.value = lastY
-    lastPart.translateZ.value = lastZ
-
 // Helper method to update the position of the snake's body parts
   private def updateBody(): Unit =
     body.zipWithIndex.foreach { case (part, index) =>
@@ -93,6 +64,10 @@ class Snake(startingX: Int, startingY: Int, startingZ: Int, gridSize: Int, boxSi
     head.translateX.value = x * boxSize
     head.translateY.value = y * boxSize
     head.translateZ.value = z * boxSize
+    val lastPart = body.last
+    lastPart.translateX.value = body(body.length - 2).translateX.value
+    lastPart.translateY.value = body(body.length - 2).translateY.value
+    lastPart.translateZ.value = body(body.length - 2).translateZ.value
 
 
   // Move the snake by one step
@@ -105,9 +80,9 @@ class Snake(startingX: Int, startingY: Int, startingZ: Int, gridSize: Int, boxSi
     val lastZ = lastPart.translateZ.value
 
     // Update head position based on given direction
-    x += dx
-    y += dy
-    z += dz
+    x = (x + dx + gridSize) % gridSize
+    y = (y + dy + gridSize) % gridSize
+    z = (z + dz + gridSize) % gridSize
 
     // Move the body parts one step forward
     body.tail.zip(body.init).foreach { case (part, prevPart) =>
@@ -117,9 +92,6 @@ class Snake(startingX: Int, startingY: Int, startingZ: Int, gridSize: Int, boxSi
     }
 
     // Move the head to the next position
-    x = math.max(0, math.min(gridSize - 1, x))
-    y = math.max(0, math.min(gridSize - 1, y))
-    z = math.max(0, math.min(gridSize - 1, z))
     val head = body.head
     head.translateX.value = x * boxSize
     head.translateY.value = y * boxSize
@@ -142,10 +114,13 @@ class Snake(startingX: Int, startingY: Int, startingZ: Int, gridSize: Int, boxSi
       // Add the new box to the scene
       pane.children.add(newBox)
 
-    // Update the position of the last body part to the previous position of the head
-    lastPart.translateX.value = lastX
-    lastPart.translateY.value = lastY
-    lastPart.translateZ.value = lastZ
+    // If the snake didn't eat food, update the position of the last body part to the previous position of the head
+    else {
+      lastPart.translateX.value = lastX
+      lastPart.translateY.value = lastY
+      lastPart.translateZ.value = lastZ
+    }
+
 
   // Check if the snake collides with its own body
   def collidesWithBody: Boolean =
@@ -157,3 +132,8 @@ class Snake(startingX: Int, startingY: Int, startingZ: Int, gridSize: Int, boxSi
 
   // Check if the game is over (snake collided with body or is out of bounds)
   def isGameOver: Boolean = collidesWithBody || isOutOfBounds
+
+  // Check if the snake is at the edge of the board
+  def isAtEdge: Boolean =
+    x == 0 || x == gridSize - 1 || y == 0 || y == gridSize - 1 || z == 0 || z == gridSize - 1
+

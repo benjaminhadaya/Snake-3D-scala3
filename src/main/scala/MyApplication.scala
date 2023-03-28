@@ -42,7 +42,9 @@ object MyApplication extends JFXApp3:
         translateY = y * boxSize
         translateZ = z * boxSize
         material = new PhongMaterial{
-          diffuseColor = Color.Grey
+          diffuseColor = Color.rgb(192, 192, 192, 0.7)
+          specularColor = Color.rgb(192, 192, 192, 0.7)
+
         }
       }
 
@@ -126,6 +128,10 @@ object MyApplication extends JFXApp3:
           case KeyCode.Down => direction = (0, 0, 1)
           case KeyCode.Left => direction = (-1, 0, 0)
           case KeyCode.Right => direction = (1, 0, 0)
+          case KeyCode.W => direction = (0, 0, -1)
+          case KeyCode.S => direction = (0, 0, 1)
+          case KeyCode.A => direction = (-1, 0, 0)
+          case KeyCode.D => direction = (1, 0, 0)
           case _ => ()
         }
       }
@@ -142,6 +148,24 @@ object MyApplication extends JFXApp3:
           val (dx, dy, dz) = direction
           if dx != 0 || dy != 0 || dz != 0 then
           snake.move1(dx, dy, dz)
+
+          // Update camera position based on snake position
+          cameraX = group.translateX() + snake.x * boxSize + (boxSize * gridSize / 2)
+          cameraY = group.translateY() - (boxSize * gridSize * 1.5)
+
+          // Update camera rotation based on snake position
+          val dx2 = snake.x * boxSize - (boxSize * gridSize / 2)
+          val dy2 = snake.y * boxSize - (boxSize * gridSize / 2)
+          val dz2 = snake.z * boxSize - (boxSize * gridSize / 2)
+
+          val angleX2 = math.atan2(dy2, dz2) * (180 / math.Pi)
+          val angleY2 = math.atan2(dx2, dz2) * (180 / math.Pi)
+
+          cameraRotationX.angle = angleX2
+          cameraRotationY.angle = initialRotationY + angleY2
+
+          // Debugg messages to help solve some problems
+          println(s"Camera position: X = ${camera.translateX.value}, Y = ${camera.translateY.value}, Z = ${camera.translateZ.value}")
 
           // Update previousTime
           previousTime = now
