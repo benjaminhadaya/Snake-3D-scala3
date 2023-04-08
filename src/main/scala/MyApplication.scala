@@ -12,19 +12,35 @@ import scalafx.scene.PointLight
 import scalafx.animation.AnimationTimer
 import scalafx.Includes.eventClosureWrapperWithParam
 import scalafx.Includes.jfxKeyEvent2sfx
-
 object MyApplication extends JFXApp3:
 
-  // Box, grid, camera...
+  // Define box size and grid size and perspective camera
   val boxSize = 50
   val gridSize = 10
   val camera = new PerspectiveCamera(false) {
     fieldOfView = 45
   }
-  val cameraDistance = 800
-  var cameraX = 0.0
-  var cameraY = 0.0
 
+  // Create a new CameraController instance
+  private val cameraController = new CameraController(camera, gridSize, boxSize)
+
+  // Function to create outer surface boxes for the grid
+  def createOuterSurfaceBoxes(): Seq[Box] =
+    for {
+      x <- 0 until gridSize
+      y <- 0 until gridSize
+      z <- 0 until gridSize
+      // Include only boxes on the outer surface of the grid
+      if x == 0 || x == gridSize - 1 || y == 0 || y == gridSize - 1 || z == 0 || z == gridSize - 1
+    } yield new Box(boxSize, boxSize, boxSize) {
+      translateX = x * boxSize
+      translateY = y * boxSize
+      translateZ = z * boxSize
+      material = new PhongMaterial {
+        diffuseColor = Color.rgb(192, 192, 192, 0.7)
+        specularColor = Color.rgb(192, 192, 192, 0.7)
+      }
+    }
   def start(): Unit =
 
     stage = new JFXApp3.PrimaryStage:
@@ -32,22 +48,10 @@ object MyApplication extends JFXApp3:
       width = 1400
       height = 800
 
-    val boxes = for
-      x <- 0 until gridSize
-      y <- 0 until gridSize
-      z <- 0 until gridSize
-    yield
-      new Box(boxSize, boxSize, boxSize) {
-        translateX = x * boxSize
-        translateY = y * boxSize
-        translateZ = z * boxSize
-        material = new PhongMaterial{
-          diffuseColor = Color.rgb(192, 192, 192, 0.7)
-          specularColor = Color.rgb(192, 192, 192, 0.7)
+    // Create outer surface boxes
+    val boxes = createOuterSurfaceBoxes()
 
-        }
-      }
-
+     // Create a group to hold the boxes
     val group = new Pane {
       children = boxes
     }
@@ -61,7 +65,6 @@ object MyApplication extends JFXApp3:
     }
     group.children.add(light)
 
-
     val myScene = new Scene{
       content = group
     }
@@ -73,68 +76,35 @@ object MyApplication extends JFXApp3:
     food.addToScene(group)
 
     // Adding the snake
-    val snake = new Snake(5, 5, 5, gridSize, boxSize)
-    snake.addToScene(group, food)
-
-    val initialRotationX = 30.0
-    val initialRotationY = 45.0
-
-    // Initialize camera position and rotation
-    camera.translateZ = -cameraDistance
-    cameraX = group.translateX() + (boxSize * gridSize / 2)
-    cameraY = group.translateY() + (boxSize * gridSize * 0.7)
-    camera.translateX = cameraX
-    camera.translateY = cameraY
-
-    val cameraRotationX = new Rotate(initialRotationX, Rotate.XAxis)
-    val cameraRotationY = new Rotate(initialRotationY, Rotate.YAxis)
-
-    camera.transforms.addAll(cameraRotationX, cameraRotationY)
-
-     // Move the camera to look at the center of the scene
-    val centerX = boxSize * gridSize / 2
-    val centerY = boxSize * gridSize / 2
-    val centerZ = boxSize * gridSize / 2
-
-    val dx = centerX - camera.translateX.value
-    val dy = centerY - camera.translateY.value
-    val dz = centerZ - camera.translateZ.value
-
-    val distance = math.sqrt(dx * dx + dy * dy + dz * dz)
-    val angleX = math.atan2(dy, dz) * (180 / math.Pi)
-    val angleY = math.atan2(dx, dz) * (180 / math.Pi)
-
-    camera.rotationAxis = Rotate.XAxis
-    camera.rotate = angleX
-    camera.rotationAxis = Rotate.YAxis
-    camera.rotate = camera.rotate() + angleY // set the rotate property explicitly by adding the angle
+    val snake = new Snake(5, 5, 5, gridSize)
+    val snakeGraphics = new SnakeGraphics(snake, boxSize)
+    snakeGraphics.addToScene(group)
 
     // Translate the group into the middle of the screen
-    // Note that the point being moved to the middle is the upper left corner of the object
-    // Therefore we have to move it back by half the width of the group.
     group.translateXProperty().bind(stage.width.divide(2).subtract(boxSize * gridSize / 2))
     group.translateYProperty().bind(stage.height.divide(2).subtract(boxSize * gridSize / 2))
 
-      // Set the camera of the scene to a perspective camera object
-      myScene.setCamera(camera)
+    // Set the camera of the scene to a perspective camera object
+    myScene.setCamera(camera)
 
-      // Define the direction variable
-      var direction: (Int, Int, Int) = (0, 0, 0)
+    // Define the direction variable
+    var direction: (Int, Int, Int) = (1, 0, 0)
 
-      // Handle key events
-      myScene.onKeyPressed = (event: KeyEvent) => {
-        event.code match {
-          case KeyCode.Up => direction = (0, 0, -1)
-          case KeyCode.Down => direction = (0, 0, 1)
-          case KeyCode.Left => direction = (-1, 0, 0)
-          case KeyCode.Right => direction = (1, 0, 0)
-          case KeyCode.W => direction = (0, 0, -1)
-          case KeyCode.S => direction = (0, 0, 1)
-          case KeyCode.A => direction = (-1, 0, 0)
-          case KeyCode.D => direction = (1, 0, 0)
-          case _ => ()
-        }
+
+    // Handle key events
+    myScene.onKeyPressed = (event: KeyEvent) => {
+      event.code match {
+        case KeyCode.Up if direction != (0, 1, 0) => direction = (0, -1, 0)
+        case KeyCode.Down if direction != (0, -1, 0) => direction = (0, 1, 0)
+        case KeyCode.Left if direction != (1, 0, 0) => direction = (-1, 0, 0)
+        case KeyCode.Right if direction != (-1, 0, 0) => direction = (1, 0, 0)
+        case KeyCode.W if direction != (0, 0, 1) => direction = (0, 0, -1)
+        case KeyCode.S if direction != (0, 0, -1) => direction = (0, 0, 1)
+        case KeyCode.A if direction != (1, 0, 0) => direction = (-1, 0, 0)
+        case KeyCode.D if direction != (-1, 0, 0) => direction = (1, 0, 0)
+        case _ => ()
       }
+    }
 
       // Create the game loop AnimationTimer
       val frameDelay = 180000000L // 180 ms delay
@@ -145,27 +115,24 @@ object MyApplication extends JFXApp3:
         if now - previousTime >= frameDelay then
 
         // Move the snake in the current direction
-          val (dx, dy, dz) = direction
-          if dx != 0 || dy != 0 || dz != 0 then
-          snake.move1(dx, dy, dz)
+          snake.move(direction._1, direction._2, direction._3)
+          snakeGraphics.update() // Update the snake graphics
 
-          // Update camera position based on snake position
-          cameraX = group.translateX() + snake.x * boxSize + (boxSize * gridSize / 2)
-          cameraY = group.translateY() - (boxSize * gridSize * 1.5)
 
-          // Update camera rotation based on snake position
-          val dx2 = snake.x * boxSize - (boxSize * gridSize / 2)
-          val dy2 = snake.y * boxSize - (boxSize * gridSize / 2)
-          val dz2 = snake.z * boxSize - (boxSize * gridSize / 2)
+          // Check if the snake has eaten the food
+          if snake.head._1 == food.foodX && snake.head._2 == food.foodY && snake.head._3 == food.foodZ then
+            snake.grow() // Increase the length of the snake
+            food.updatePosition(snake) // Move the food to a new position
+            // Add the new body part to the SnakeGraphics
+            val newBodySegment = snake.body.last
+            val newBodyBox = snakeGraphics.createBodyBox()
+            newBodyBox.translateX = newBodySegment._1 * boxSize
+            newBodyBox.translateY = newBodySegment._2 * boxSize
+            newBodyBox.translateZ = newBodySegment._3 * boxSize
+            snakeGraphics.bodyParts = snakeGraphics.bodyParts :+ newBodyBox
 
-          val angleX2 = math.atan2(dy2, dz2) * (180 / math.Pi)
-          val angleY2 = math.atan2(dx2, dz2) * (180 / math.Pi)
-
-          cameraRotationX.angle = angleX2
-          cameraRotationY.angle = initialRotationY + angleY2
-
-          // Debugg messages to help solve some problems
-          println(s"Camera position: X = ${camera.translateX.value}, Y = ${camera.translateY.value}, Z = ${camera.translateZ.value}")
+          // Set the camera position based on the snake position
+          cameraController.setCameraPositionBySnake(snake)
 
           // Update previousTime
           previousTime = now

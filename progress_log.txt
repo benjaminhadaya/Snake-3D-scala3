@@ -32,3 +32,11 @@ Second commit 1.3.: (and 7.3. addad progress_log)
     Tryied again to work with the camera. Now it somewhat changes angle when the snake changes side of cube.
     Still my Biggest and hardest issue is the camera. I hope to get help.
     Having problems with the last bodypart of the snake. It isn't connected with the body.
+
+
+  Sixth commit 8.4.
+    A little bit of class structions so that it is easier to handle the code.
+    Camera only moves between several fixed position now
+    Updated game loop
+    Did some changes to snake, now it moves fully
+    XXX -> The camera angles are still problem. I don't know if the snake eats the food or not? What could I do next??

@@ -5,15 +5,16 @@ import scalafx.scene.paint.PhongMaterial
 import scalafx.scene.shape.Box
 import scalafx.Includes.jfxKeyEvent2sfx
 
-class Food(gridSize: Int, boxSize: Int) extends Box(boxSize, boxSize, boxSize):
+class Food(gridSize: Int, boxSize: Int) extends Box(boxSize, boxSize, boxSize) {
   // Set a random position for the food
-  var (foodX, foodY, foodZ) = (0, 0, 0)
-  while
+  var foodX, foodY, foodZ = 0
+  var newPosition = true
+  while (newPosition) {
     foodX = Random.nextInt(gridSize)
     foodY = Random.nextInt(gridSize)
     foodZ = Random.nextInt(gridSize)
-    false
-  do ()
+    newPosition = false
+  }
 
   // Set the position of the food box
   translateX = foodX * boxSize
@@ -27,17 +28,21 @@ class Food(gridSize: Int, boxSize: Int) extends Box(boxSize, boxSize, boxSize):
   def addToScene(pane: Pane): Unit = pane.children.add(this)
 
   // Update the position of the food box
-  def updatePosition(snake: Snake): Unit =
-    var (newFoodX, newFoodY, newFoodZ) = (0, 0, 0)
-    while
+  def updatePosition(snake: Snake): Unit = {
+    var newFoodX, newFoodY, newFoodZ = 0
+    var occupiedPosition = true
+    while (occupiedPosition) {
       newFoodX = Random.nextInt(gridSize)
       newFoodY = Random.nextInt(gridSize)
       newFoodZ = Random.nextInt(gridSize)
-      snake.body.exists(box => box.translateX.value == newFoodX * boxSize && box.translateY.value == newFoodY * boxSize && box.translateZ.value == newFoodZ * boxSize)
-    do ()
+      occupiedPosition = snake.body.exists { case (bx, by, bz) => bx == newFoodX && by == newFoodY && bz == newFoodZ }
+    }
+
     foodX = newFoodX
     foodY = newFoodY
     foodZ = newFoodZ
     translateX = foodX * boxSize
     translateY = foodY * boxSize
     translateZ = foodZ * boxSize
+  }
+}
