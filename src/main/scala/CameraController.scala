@@ -4,7 +4,7 @@ import scalafx.animation.AnimationTimer
 
 case class CameraPosition(x: Double, y: Double, z: Double, rotationX: Double, rotationY: Double)
 
-class CameraController(camera: Camera, gridSize: Int, boxSize: Int) {
+class CameraController(camera: Camera, gridSize: Int, boxSize: Int) :
 
   // Calculate the center of the grid
   val gridCenter = (gridSize * boxSize) / 2.0
@@ -95,5 +95,3 @@ class CameraController(camera: Camera, gridSize: Int, boxSize: Int) {
     else 0
   }
 
-
-}
