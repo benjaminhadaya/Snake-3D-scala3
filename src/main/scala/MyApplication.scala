@@ -7,7 +7,6 @@ import scalafx.scene.paint.Color
 import scalafx.scene.paint.PhongMaterial
 import scalafx.scene.shape.Box
 import scalafx.scene.transform.Rotate
-import scalafx.scene.Camera
 import scalafx.scene.PointLight
 import scalafx.animation.AnimationTimer
 import scalafx.Includes.eventClosureWrapperWithParam
@@ -19,10 +18,10 @@ object MyApplication extends JFXApp3:
   val gridSize = 10
   val camera = new PerspectiveCamera(false) {
     fieldOfView = 45
+    translateX = gridSize * boxSize / 2
+    translateY = gridSize * boxSize / 2
+    translateZ = -3 * gridSize * boxSize
   }
-
-  // Create a new CameraController instance
-  private val cameraController = new CameraController(camera, gridSize, boxSize)
 
   // Function to create outer surface boxes for the grid
   def createOuterSurfaceBoxes(): Seq[Box] =
@@ -62,23 +61,23 @@ object MyApplication extends JFXApp3:
       translateX = boxSize * gridSize / 2
       translateY = boxSize * gridSize / 2
       translateZ = -boxSize * gridSize / 2
-    }
+}
     group.children.add(light)
 
     val myScene = new Scene{
       content = group
-    }
+}
 
     stage.scene = myScene
-
-    // Adding the food
-    val food = new Food(gridSize, boxSize)
-    food.addToScene(group)
 
     // Adding the snake
     val snake = new Snake(5, 5, 5, gridSize)
     val snakeGraphics = new SnakeGraphics(snake, boxSize)
     snakeGraphics.addToScene(group)
+
+    // Adding the food
+    val food = new Food(gridSize, boxSize, snake)
+    food.addToScene(group)
 
     // Translate the group into the middle of the screen
     group.translateXProperty().bind(stage.width.divide(2).subtract(boxSize * gridSize / 2))
@@ -89,7 +88,6 @@ object MyApplication extends JFXApp3:
 
     // Define the direction variable
     var direction: (Int, Int, Int) = (1, 0, 0)
-
 
     // Handle key events
     myScene.onKeyPressed = (event: KeyEvent) => {
@@ -106,45 +104,38 @@ object MyApplication extends JFXApp3:
       }
     }
 
-      // Create the game loop AnimationTimer
-      val frameDelay = 180000000L // 180 ms delay
-      var previousTime = 0L
+    // Create the game loop AnimationTimer
+    val frameDelay = 180000000L // 180 ms delay
+    var previousTime = 0L
 
-      // Create the game loop AnimationTimer
-      lazy val gameLoop: AnimationTimer = AnimationTimer((now) => {
-        if now - previousTime >= frameDelay then
+    // Create the game loop AnimationTimer
+    lazy val gameLoop: AnimationTimer = AnimationTimer((now) => {
+      if now - previousTime >= frameDelay then
 
         // Move the snake in the current direction
-          snake.move(direction._1, direction._2, direction._3)
-          snakeGraphics.update() // Update the snake graphics
+        snake.move(direction._1, direction._2, direction._3)
+        snakeGraphics.update() // Update the snake graphics
 
+        // Check if the snake has eaten the food
+        if snake.eatFood(food.foodX, food.foodY, food.foodZ) then
+          snake.grow() // Increase the length of the snake
+          food.updatePosition(snake) // Move the food to a new position
+          // Add the new body part to the SnakeGraphics
+          val newBodySegment = snake.body.last
+          val newBodyBox = snakeGraphics.createBodyBox()
+          newBodyBox.translateX = newBodySegment._1 * boxSize
+          newBodyBox.translateY = newBodySegment._2 * boxSize
+          newBodyBox.translateZ = newBodySegment._3 * boxSize
+          snakeGraphics.bodyParts = snakeGraphics.bodyParts :+ newBodyBox
+        // Update previousTime
+        previousTime = now
 
-          // Check if the snake has eaten the food
-          if snake.head._1 == food.foodX && snake.head._2 == food.foodY && snake.head._3 == food.foodZ then
-            snake.grow() // Increase the length of the snake
-            food.updatePosition(snake) // Move the food to a new position
-            // Add the new body part to the SnakeGraphics
-            val newBodySegment = snake.body.last
-            val newBodyBox = snakeGraphics.createBodyBox()
-            newBodyBox.translateX = newBodySegment._1 * boxSize
-            newBodyBox.translateY = newBodySegment._2 * boxSize
-            newBodyBox.translateZ = newBodySegment._3 * boxSize
-            snakeGraphics.bodyParts = snakeGraphics.bodyParts :+ newBodyBox
+        // Check if the game is over
+        if snake.isGameOver then
+          gameLoop.stop()
+          println("Game Over")
 
-          // Set the camera position based on the snake position
-          cameraController.setCameraPositionBySnake(snake)
+    })
 
-          // Update previousTime
-          previousTime = now
-
-          // Check if the game is over
-          if snake.isGameOver then
-            gameLoop.stop()
-            println("Game Over")
-
-        // game logic, update and rendering goes here
-
-      })
-
-      // Start the game loop
-      gameLoop.start()
+    // Start the game loop
+    gameLoop.start()

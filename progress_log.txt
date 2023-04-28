@@ -41,6 +41,13 @@ Second commit 1.3.: (and 7.3. addad progress_log)
     Did some changes to snake, now it moves fully
     XXX -> The camera angles are still problem. I don't know if the snake eats the food or not? What could I do next??
 
+
   Seventh commit 25.4.
     Haven't have time to update code since too many courses. Got from Lauri Malmi extra time so my deadline is 2.5.
     Will continue this week the project.
+
+
+  Eighth commit 28.4.
+    Changed the camera back to fixed camera.
+    Also now the snake eats the food BUT only when it it on the right side of the cube
+    Because I don't know how to fix the camera, the player can't know what side the food is in.

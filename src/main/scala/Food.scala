@@ -1,48 +1,39 @@
 import scala.util.Random
-import scalafx.scene.layout.Pane
 import scalafx.scene.paint.Color
 import scalafx.scene.paint.PhongMaterial
 import scalafx.scene.shape.Box
-import scalafx.Includes.jfxKeyEvent2sfx
+import scalafx.scene.layout.Pane
 
-class Food(gridSize: Int, boxSize: Int) extends Box(boxSize, boxSize, boxSize) {
-  // Set a random position for the food
-  var foodX, foodY, foodZ = 0
-  var newPosition = true
-  while (newPosition) {
-    foodX = Random.nextInt(gridSize)
-    foodY = Random.nextInt(gridSize)
-    foodZ = Random.nextInt(gridSize)
-    newPosition = false
+class Food(gridSize: Int, boxSize: Int, snake: Snake) {
+  private val rand = new Random()
+  private val foodBox = new Box(boxSize, boxSize, boxSize) {
+    material = new PhongMaterial {
+      diffuseColor = Color.Red
+      specularColor = Color.Red
+    }
   }
 
-  // Set the position of the food box
-  translateX = foodX * boxSize
-  translateY = foodY * boxSize
-  translateZ = foodZ * boxSize
+  def foodX: Int = foodBox.translateX.toInt / boxSize
+  def foodY: Int = foodBox.translateY.toInt / boxSize
+  def foodZ: Int = foodBox.translateZ.toInt / boxSize
 
-  // Set the material of the food box
-  material = new PhongMaterial(Color.Red)
+  def addToScene(scene: Pane): Unit = {
+    scene.children.add(foodBox)
+    updatePosition(snake)
+  }
 
-  // Add the food box to the scene
-  def addToScene(pane: Pane): Unit = pane.children.add(this)
-
-  // Update the position of the food box
   def updatePosition(snake: Snake): Unit = {
-    var newFoodX, newFoodY, newFoodZ = 0
-    var occupiedPosition = true
-    while (occupiedPosition) {
-      newFoodX = Random.nextInt(gridSize)
-      newFoodY = Random.nextInt(gridSize)
-      newFoodZ = Random.nextInt(gridSize)
-      occupiedPosition = snake.body.exists { case (bx, by, bz) => bx == newFoodX && by == newFoodY && bz == newFoodZ }
-    }
+    // Helper function to check if the food position is valid
+    def isValidPosition: Boolean =
+      !snake.body.exists { case (x, y, z) => x == foodX && y == foodY && z == foodZ }
 
-    foodX = newFoodX
-    foodY = newFoodY
-    foodZ = newFoodZ
-    translateX = foodX * boxSize
-    translateY = foodY * boxSize
-    translateZ = foodZ * boxSize
+    // Update the position until a valid position is found
+    var validPosition = false
+    while (!validPosition) {
+      foodBox.translateX = rand.nextInt(gridSize) * boxSize
+      foodBox.translateY = rand.nextInt(gridSize) * boxSize
+      foodBox.translateZ = rand.nextInt(gridSize) * boxSize
+      validPosition = isValidPosition
+    }
   }
 }

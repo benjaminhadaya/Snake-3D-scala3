@@ -64,3 +64,6 @@ class Snake(startingX: Int, startingY: Int, startingZ: Int, gridSize: Int) :
   // Gets the snake's head position
   def head: (Int, Int, Int) = body.head
 
+  def eatFood(foodX: Int, foodY: Int, foodZ: Int): Boolean = {
+  head._1 == foodX && head._2 == foodY && head._3 == foodZ
+}
