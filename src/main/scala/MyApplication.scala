@@ -22,6 +22,8 @@ object MyApplication extends JFXApp3:
     translateY = gridSize * boxSize / 2
     translateZ = -3 * gridSize * boxSize
   }
+  // Define the camera controller
+  val cameraController = new CameraController(camera, gridSize, boxSize)
 
   // Function to create outer surface boxes for the grid
   def createOuterSurfaceBoxes(): Seq[Box] =
@@ -36,8 +38,8 @@ object MyApplication extends JFXApp3:
       translateY = y * boxSize
       translateZ = z * boxSize
       material = new PhongMaterial {
-        diffuseColor = Color.rgb(192, 192, 192, 0.7)
-        specularColor = Color.rgb(192, 192, 192, 0.7)
+        diffuseColor = Color.rgb(192, 192, 192, 0.5)
+        specularColor = Color.rgb(192, 192, 192, 0.5)
       }
     }
   def start(): Unit =
@@ -96,10 +98,15 @@ object MyApplication extends JFXApp3:
         case KeyCode.Down if direction != (0, -1, 0) => direction = (0, 1, 0)
         case KeyCode.Left if direction != (1, 0, 0) => direction = (-1, 0, 0)
         case KeyCode.Right if direction != (-1, 0, 0) => direction = (1, 0, 0)
-        case KeyCode.W if direction != (0, 0, 1) => direction = (0, 0, -1)
-        case KeyCode.S if direction != (0, 0, -1) => direction = (0, 0, 1)
+        case KeyCode.W if direction != (0, 1, 0) => direction = (0, -1, 0)
+        case KeyCode.S if direction != (0, -1, 0) => direction = (0, 1, 0)
         case KeyCode.A if direction != (1, 0, 0) => direction = (-1, 0, 0)
         case KeyCode.D if direction != (-1, 0, 0) => direction = (1, 0, 0)
+        case KeyCode.K => cameraController.zoomIn()
+        case KeyCode.T => cameraController.zoomOut()
+        case KeyCode.Q => cameraController.rotateCamera(10)
+        case KeyCode.E => cameraController.rotateCamera(-10)
+
         case _ => ()
       }
     }
