@@ -1,13 +1,3 @@
-import scalafx.scene.layout.Pane
-import scalafx.scene.paint.{Color, PhongMaterial}
-import scalafx.scene.shape.Box
-import scalafx.scene.input.KeyEvent
-import scalafx.scene.input.KeyCode
-import scala.annotation.targetName
-import scalafx.scene.text.Text
-import scalafx.scene.text.Font
-import scalafx.scene.transform.Translate
-
 class Snake(startingX: Int, startingY: Int, startingZ: Int, gridSize: Int) :
   var x = startingX
   var y = startingY
@@ -59,11 +49,16 @@ class Snake(startingX: Int, startingY: Int, startingZ: Int, gridSize: Int) :
     val newTailZ = lastZ + dz
 
     body = body :+ (newTailX, newTailY, newTailZ)
-    (newTailX, newTailY, newTailZ)
 
   // Gets the snake's head position
   def head: (Int, Int, Int) = body.head
 
+  //Eats food and grows
   def eatFood(foodX: Int, foodY: Int, foodZ: Int): Boolean = {
-  head._1 == foodX && head._2 == foodY && head._3 == foodZ
+  val headX = body.head._1
+  val headY = body.head._2
+  val headZ = body.head._3
+
+  headX == foodX && headY == foodY && headZ == foodZ
 }
+

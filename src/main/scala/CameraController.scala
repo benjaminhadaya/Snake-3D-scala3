@@ -23,13 +23,13 @@ class CameraController(camera: Camera, gridSize: Int, boxSize: Int) :
 
 
   // Function to set the camera position based on a CameraPosition object
-  private def setCameraPosition(position: CameraPosition): Unit = {
+  private def setCameraPosition(position: CameraPosition): Unit =
     camera.translateX = position.x
     camera.translateY = position.y
     camera.translateZ = position.z - cameraOffset
     cameraRotationX.angle = position.rotationX
     cameraRotationY.angle = position.rotationY
-  }
+
 
   // Zoom in
   def zoomIn(): Unit =
@@ -39,7 +39,8 @@ class CameraController(camera: Camera, gridSize: Int, boxSize: Int) :
   def zoomOut(): Unit =
     camera.translateZ.set(camera.translateZ.value - boxSize)
 
-  def rotateCamera(rotationY: Double): Unit = {
+  // Function to get the current camera position
+  def rotateCamera(rotationY: Double): Unit =
     cameraRotationY.angle.value += rotationY
-}
+
 

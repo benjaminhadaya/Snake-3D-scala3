@@ -102,11 +102,10 @@ object MyApplication extends JFXApp3:
         case KeyCode.S if direction != (0, -1, 0) => direction = (0, 1, 0)
         case KeyCode.A if direction != (1, 0, 0) => direction = (-1, 0, 0)
         case KeyCode.D if direction != (-1, 0, 0) => direction = (1, 0, 0)
-        case KeyCode.K => cameraController.zoomIn()
-        case KeyCode.T => cameraController.zoomOut()
-        case KeyCode.Q => cameraController.rotateCamera(10)
-        case KeyCode.E => cameraController.rotateCamera(-10)
-
+        case KeyCode.Y => cameraController.zoomIn()
+        case KeyCode.U => cameraController.zoomOut()
+        case KeyCode.I => cameraController.rotateCamera(10)
+        case KeyCode.O => cameraController.rotateCamera(-10)
         case _ => ()
       }
     }
