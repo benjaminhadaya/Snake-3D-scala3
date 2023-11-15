@@ -20,6 +20,5 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/sbt: org.scala-lang:scala-library:2.13.10:jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/sbt: org.scala-lang:scala3-library_3:3.2.2:jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/sbt: org.scalafx:scalafx_3:19.0.0-R30:jar"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/javafx-sdk-21.0"/>
 	<classpathentry kind="output" path="target/scala-3.2.2/classes"/>
 </classpath>

@@ -10,17 +10,17 @@ class CameraController(camera: Camera, gridSize: Int, boxSize: Int) :
 
   camera.translateX = gridCenter
   camera.translateY = gridCenter
-  // Adjust camera.translateZ to bring the grid into view
+  // Adjust camera.translateZ to the grid into view
   camera.translateZ = -4 * gridCenter
 
   private val cameraRotationX = new Rotate :
     // Decrease the negative angle to tilt the camera more downwards
-    angle = -1 // Adjust this value as needed
+    angle = -1
     axis = Rotate.XAxis
 
 
   private val cameraRotationY = new Rotate :
-    // Adjust this angle as needed to center the grid
+    // Adjust angle to center the grid
     angle = 0
     axis = Rotate.YAxis
 
