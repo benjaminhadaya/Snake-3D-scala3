@@ -1,0 +1,51 @@
+[0m[[0m[0mdebug[0m] [0m[0mPackaging /Users/benjaminhadaya/Downloads/Snake3D project/target/scala-3.2.2/snake3d-project_3-0.1.0-SNAPSHOT.jar ...[0m
+[0m[[0m[0mdebug[0m] [0m[0mInput file mappings:[0m
+[0m[[0m[0mdebug[0m] [0m[0m	CameraController.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/benjaminhadaya/Downloads/Snake3D project/target/scala-3.2.2/classes/CameraController.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Snake.tasty[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/benjaminhadaya/Downloads/Snake3D project/target/scala-3.2.2/classes/Snake.tasty[0m
+[0m[[0m[0mdebug[0m] [0m[0m	MyApplication$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/benjaminhadaya/Downloads/Snake3D project/target/scala-3.2.2/classes/MyApplication$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	SnakeGraphics.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/benjaminhadaya/Downloads/Snake3D project/target/scala-3.2.2/classes/SnakeGraphics.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	SnakeGraphics.tasty[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/benjaminhadaya/Downloads/Snake3D project/target/scala-3.2.2/classes/SnakeGraphics.tasty[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Snake.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/benjaminhadaya/Downloads/Snake3D project/target/scala-3.2.2/classes/Snake.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	CameraController.tasty[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/benjaminhadaya/Downloads/Snake3D project/target/scala-3.2.2/classes/CameraController.tasty[0m
+[0m[[0m[0mdebug[0m] [0m[0m	MyApplication$$anon$2.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/benjaminhadaya/Downloads/Snake3D project/target/scala-3.2.2/classes/MyApplication$$anon$2.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Food$$anon$1.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/benjaminhadaya/Downloads/Snake3D project/target/scala-3.2.2/classes/Food$$anon$1.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	MyApplication.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/benjaminhadaya/Downloads/Snake3D project/target/scala-3.2.2/classes/MyApplication.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	MyApplication$$anon$4.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/benjaminhadaya/Downloads/Snake3D project/target/scala-3.2.2/classes/MyApplication$$anon$4.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Food.tasty[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/benjaminhadaya/Downloads/Snake3D project/target/scala-3.2.2/classes/Food.tasty[0m
+[0m[[0m[0mdebug[0m] [0m[0m	CameraPosition.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/benjaminhadaya/Downloads/Snake3D project/target/scala-3.2.2/classes/CameraPosition.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	MyApplication$$anon$6.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/benjaminhadaya/Downloads/Snake3D project/target/scala-3.2.2/classes/MyApplication$$anon$6.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	CameraPosition.tasty[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/benjaminhadaya/Downloads/Snake3D project/target/scala-3.2.2/classes/CameraPosition.tasty[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Food$$anon$2.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/benjaminhadaya/Downloads/Snake3D project/target/scala-3.2.2/classes/Food$$anon$2.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	MyApplication$$anon$1.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/benjaminhadaya/Downloads/Snake3D project/target/scala-3.2.2/classes/MyApplication$$anon$1.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	CameraPosition$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/benjaminhadaya/Downloads/Snake3D project/target/scala-3.2.2/classes/CameraPosition$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Food.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/benjaminhadaya/Downloads/Snake3D project/target/scala-3.2.2/classes/Food.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	MyApplication$$anon$3.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/benjaminhadaya/Downloads/Snake3D project/target/scala-3.2.2/classes/MyApplication$$anon$3.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	MyApplication$$anon$7.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/benjaminhadaya/Downloads/Snake3D project/target/scala-3.2.2/classes/MyApplication$$anon$7.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	MyApplication$$anon$5.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/benjaminhadaya/Downloads/Snake3D project/target/scala-3.2.2/classes/MyApplication$$anon$5.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	SnakeGraphics$$anon$1.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/benjaminhadaya/Downloads/Snake3D project/target/scala-3.2.2/classes/SnakeGraphics$$anon$1.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	MyApplication.tasty[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/benjaminhadaya/Downloads/Snake3D project/target/scala-3.2.2/classes/MyApplication.tasty[0m
+[0m[[0m[0mdebug[0m] [0m[0mDone packaging.[0m

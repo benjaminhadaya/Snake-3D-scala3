@@ -1,0 +1,118 @@
+[debug] > Exec(early(addDefaultCommands), None, None)
+[debug] > Exec(addDefaultCommands, None, None)
+[debug] > Exec(early(initialize), None, None)
+[debug] > Exec(initialize, None, None)
+[debug] > Exec(boot, None, None)
+[debug] > Exec(writeSbtVersion, None, None)
+[debug] > Exec(reload, None, None)
+[debug] > Exec(sbtStashOnFailure, None, None)
+[debug] > Exec(onFailure loadFailed, None, None)
+[debug] > Exec(loadp, None, None)
+[info] welcome to sbt 1.8.2 (Eclipse Adoptium Java 11.0.16.1)
+[debug]       Load.loadUnit: plugins took 153.30975ms
+[debug]       Load.loadUnit: defsScala took 0.384875ms
+[debug] [Loading] Scanning directory /Users/benjaminhadaya/.sbt/1.0/plugins
+[debug] [Loading] Found non-root projects 
+[debug] [Loading] Done in /Users/benjaminhadaya/.sbt/1.0/plugins, returning: ()
+[debug] deducing auto plugins based on known facts Set(Atom(sbt.plugins.CorePlugin)) and clauses Clauses(Clause(Atom(sbt.plugins.JvmPlugin),Set(Atom(sbt.plugins.IvyPlugin)))
+[debug] Clause(Atom(sbt.ScriptedPlugin),Set(Atom(sbt.plugins.JvmPlugin)))
+[debug] Clause(Atom(sbt.plugins.SbtPlugin),Set(Atom(sbt.ScriptedPlugin)))
+[debug] Clause(Atom(sbt.plugins.SemanticdbPlugin),Set(Atom(sbt.plugins.JvmPlugin)))
+[debug] Clause(Atom(sbt.plugins.JUnitXmlReportPlugin),Set(Atom(sbt.plugins.JvmPlugin)))
+[debug] Clause(Atom(sbt.plugins.MiniDependencyTreePlugin),Set(Atom(sbt.plugins.JvmPlugin)))
+[debug] Clause(Atom(sbt.plugins.CorePlugin),Set(Atom(sbt.plugins.IvyPlugin)))
+[debug] Clause(Atom(sbt.plugins.IvyPlugin),Set(Atom(sbt.plugins.JvmPlugin)))
+[debug] Clause(Atom(sbt.plugins.JvmPlugin),Set(Atom(sbt.plugins.SemanticdbPlugin)))
+[debug] Clause(Atom(sbt.plugins.JvmPlugin),Set(Atom(sbt.plugins.JUnitXmlReportPlugin)))
+[debug] Clause(Atom(sbt.plugins.CorePlugin),Set(Atom(sbt.plugins.Giter8TemplatePlugin)))
+[debug] Clause(Atom(sbt.plugins.JvmPlugin),Set(Atom(sbt.plugins.MiniDependencyTreePlugin))))
+[debug]   :: deduced result: Matched(sbt.plugins.CorePlugin,sbt.plugins.Giter8TemplatePlugin,sbt.plugins.IvyPlugin,sbt.plugins.JvmPlugin,sbt.plugins.MiniDependencyTreePlugin,sbt.plugins.JUnitXmlReportPlugin,sbt.plugins.SemanticdbPlugin)
+[debug] Plugins.deducer#function took 21.980209 ms
+[debug]           Load.resolveProject(global-plugins) took 111.875541ms
+[debug]         Load.loadTransitive: finalizeProject(Project(id global-plugins, base: /Users/benjaminhadaya/.sbt/1.0/plugins, plugins: List(<none>))) took 171.576375ms
+[debug] [Loading] Done in /Users/benjaminhadaya/.sbt/1.0/plugins, returning: (global-plugins)
+[debug]       Load.loadUnit: loadedProjectsRaw took 195.062125ms
+[debug]       Load.loadUnit: cleanEvalClasses took 0.273542ms
+[debug]     Load.loadUnit(file:/Users/benjaminhadaya/.sbt/1.0/plugins/, ...) took 363.182584ms
+[debug]   Load.apply: load took 734.048ms
+[debug]   Load.apply: resolveProjects took 5.659167ms
+[debug]   Load.apply: finalTransforms took 90.445333ms
+[debug]   Load.apply: config.delegates took 5.452541ms
+[debug]   Load.apply: Def.make(settings)... took 1101.117583ms
+[debug]   Load.apply: structureIndex took 204.302459ms
+[debug]   Load.apply: mkStreams took 1.225208ms
+[info] loading global plugins from /Users/benjaminhadaya/.sbt/1.0/plugins
+[debug] Running task... Cancel: Signal, check cycles: false, forcegc: true
+[debug] Load.defaultLoad until apply took 3839.176667ms
+[debug]           Load.loadUnit: plugins took 24.669375ms
+[debug]           Load.loadUnit: defsScala took 0.002667ms
+[debug] [Loading] Scanning directory /Users/benjaminhadaya/Downloads/Snake3D project/project
+[debug] [Loading] Found non-root projects 
+[debug] [Loading] Done in /Users/benjaminhadaya/Downloads/Snake3D project/project, returning: ()
+[debug] deducing auto plugins based on known facts Set(Atom(sbt.plugins.CorePlugin)) and clauses Clauses(Clause(Atom(sbt.plugins.JvmPlugin),Set(Atom(sbt.plugins.IvyPlugin)))
+[debug] Clause(Atom(sbt.ScriptedPlugin),Set(Atom(sbt.plugins.JvmPlugin)))
+[debug] Clause(Atom(sbt.plugins.SbtPlugin),Set(Atom(sbt.ScriptedPlugin)))
+[debug] Clause(Atom(sbt.plugins.SemanticdbPlugin),Set(Atom(sbt.plugins.JvmPlugin)))
+[debug] Clause(Atom(sbt.plugins.JUnitXmlReportPlugin),Set(Atom(sbt.plugins.JvmPlugin)))
+[debug] Clause(Atom(sbt.plugins.MiniDependencyTreePlugin),Set(Atom(sbt.plugins.JvmPlugin)))
+[debug] Clause(Atom(sbt.plugins.CorePlugin),Set(Atom(sbt.plugins.IvyPlugin)))
+[debug] Clause(Atom(sbt.plugins.IvyPlugin),Set(Atom(sbt.plugins.JvmPlugin)))
+[debug] Clause(Atom(sbt.plugins.JvmPlugin),Set(Atom(sbt.plugins.SemanticdbPlugin)))
+[debug] Clause(Atom(sbt.plugins.JvmPlugin),Set(Atom(sbt.plugins.JUnitXmlReportPlugin)))
+[debug] Clause(Atom(sbt.plugins.CorePlugin),Set(Atom(sbt.plugins.Giter8TemplatePlugin)))
+[debug] Clause(Atom(sbt.plugins.JvmPlugin),Set(Atom(sbt.plugins.MiniDependencyTreePlugin))))
+[debug]   :: deduced result: Matched(sbt.plugins.CorePlugin,sbt.plugins.Giter8TemplatePlugin,sbt.plugins.IvyPlugin,sbt.plugins.JvmPlugin,sbt.plugins.MiniDependencyTreePlugin,sbt.plugins.JUnitXmlReportPlugin,sbt.plugins.SemanticdbPlugin)
+[debug] Plugins.deducer#function took 4.968084 ms
+[debug]               Load.resolveProject(snake3d-project-build) took 1.755209ms
+[debug]             Load.loadTransitive: finalizeProject(Project(id snake3d-project-build, base: /Users/benjaminhadaya/Downloads/Snake3D project/project, plugins: List(<none>))) took 9.311083ms
+[debug] [Loading] Done in /Users/benjaminhadaya/Downloads/Snake3D project/project, returning: (snake3d-project-build)
+[debug]           Load.loadUnit: loadedProjectsRaw took 13.700709ms
+[debug]           Load.loadUnit: cleanEvalClasses took 0.008791ms
+[debug]         Load.loadUnit(file:/Users/benjaminhadaya/Downloads/Snake3D%20project/project/, ...) took 39.148209ms
+[debug]       Load.apply: load took 43.518125ms
+[debug]       Load.apply: resolveProjects took 1.584708ms
+[debug]       Load.apply: finalTransforms took 21.894208ms
+[debug]       Load.apply: config.delegates took 0.814542ms
+[debug]       Load.apply: Def.make(settings)... took 316.785542ms
+[debug]       Load.apply: structureIndex took 51.813292ms
+[debug]       Load.apply: mkStreams took 0.003791ms
+[info] loading project definition from /Users/benjaminhadaya/Downloads/Snake3D project/project
+[debug] Running task... Cancel: Signal, check cycles: false, forcegc: true
+[debug]     Load.loadUnit: plugins took 824.693792ms
+[debug]     Load.loadUnit: defsScala took 0.002375ms
+[debug] [Loading] Scanning directory /Users/benjaminhadaya/Downloads/Snake3D project
+[debug]       Load.loadUnit: mkEval took 5.805791ms
+[debug] [Loading] Found root project root w/ remaining 
+[debug] deducing auto plugins based on known facts Set(Atom(sbt.plugins.CorePlugin)) and clauses Clauses(Clause(Atom(sbt.plugins.JvmPlugin),Set(Atom(sbt.plugins.IvyPlugin)))
+[debug] Clause(Atom(sbt.ScriptedPlugin),Set(Atom(sbt.plugins.JvmPlugin)))
+[debug] Clause(Atom(sbt.plugins.SbtPlugin),Set(Atom(sbt.ScriptedPlugin)))
+[debug] Clause(Atom(sbt.plugins.SemanticdbPlugin),Set(Atom(sbt.plugins.JvmPlugin)))
+[debug] Clause(Atom(sbt.plugins.JUnitXmlReportPlugin),Set(Atom(sbt.plugins.JvmPlugin)))
+[debug] Clause(Atom(sbt.plugins.MiniDependencyTreePlugin),Set(Atom(sbt.plugins.JvmPlugin)))
+[debug] Clause(Atom(sbt.plugins.CorePlugin),Set(Atom(sbt.plugins.IvyPlugin)))
+[debug] Clause(Atom(sbt.plugins.IvyPlugin),Set(Atom(sbt.plugins.JvmPlugin)))
+[debug] Clause(Atom(sbt.plugins.JvmPlugin),Set(Atom(sbt.plugins.SemanticdbPlugin)))
+[debug] Clause(Atom(sbt.plugins.JvmPlugin),Set(Atom(sbt.plugins.JUnitXmlReportPlugin)))
+[debug] Clause(Atom(sbt.plugins.CorePlugin),Set(Atom(sbt.plugins.Giter8TemplatePlugin)))
+[debug] Clause(Atom(sbt.plugins.JvmPlugin),Set(Atom(sbt.plugins.MiniDependencyTreePlugin))))
+[debug]   :: deduced result: Matched(sbt.plugins.CorePlugin,sbt.plugins.Giter8TemplatePlugin,sbt.plugins.IvyPlugin,sbt.plugins.JvmPlugin,sbt.plugins.MiniDependencyTreePlugin,sbt.plugins.JUnitXmlReportPlugin,sbt.plugins.SemanticdbPlugin)
+[debug] Plugins.deducer#function took 7.89925 ms
+[info] loading settings for project root from build.sbt ...
+[debug]         Load.resolveProject(root) took 11.361667ms
+[debug]       Load.loadTransitive: finalizeProject(Project(id root, base: /Users/benjaminhadaya/Downloads/Snake3D project, plugins: List(<none>))) took 24.765375ms
+[debug] [Loading] Done in /Users/benjaminhadaya/Downloads/Snake3D project, returning: (root)
+[debug]     Load.loadUnit: loadedProjectsRaw took 4966.987125ms
+[debug]     Load.loadUnit: cleanEvalClasses took 10.76675ms
+[debug]   Load.loadUnit(file:/Users/benjaminhadaya/Downloads/Snake3D%20project/, ...) took 5804.217583ms
+[debug] Load.apply: load took 5815.524417ms
+[debug] Load.apply: resolveProjects took 0.924042ms
+[debug] Load.apply: finalTransforms took 25.148583ms
+[debug] Load.apply: config.delegates took 1.81025ms
+[debug] Load.apply: Def.make(settings)... took 218.346416ms
+[debug] Load.apply: structureIndex took 46.724167ms
+[debug] Load.apply: mkStreams took 0.002291ms
+[info] set current project to Snake3D project (in build file:/Users/benjaminhadaya/Downloads/Snake3D%20project/)
+[debug] > Exec(sbtPopOnFailure, None, None)
+[debug] > Exec(resumeFromFailure, None, None)
+[debug] > Exec(notifyUsersAboutShell, None, None)
+[debug] > Exec(iflast shell, None, None)

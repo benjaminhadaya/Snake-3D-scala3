@@ -6,41 +6,58 @@ case class CameraPosition(x: Double, y: Double, z: Double, rotationX: Double, ro
 
 class CameraController(camera: Camera, gridSize: Int, boxSize: Int) :
 
-  // Calculate the center of the grid
   val gridCenter = (gridSize * boxSize) / 2.0
-  // Define the camera offset from the grid
-  val cameraOffset = 3.0 * gridCenter
 
-  // Set the initial camera position
   camera.translateX = gridCenter
-  camera.translateY = 2.5 * gridCenter
-  camera.translateZ = -2.0 * cameraOffset
+  camera.translateY = gridCenter
+  // Adjust camera.translateZ to bring the grid into view
+  camera.translateZ = -4 * gridCenter
 
-  // Create rotation transforms for the camera
-  private val cameraRotationX = new Rotate(30, Rotate.XAxis)
-  private val cameraRotationY = new Rotate(45, Rotate.YAxis)
+  private val cameraRotationX = new Rotate :
+    // Decrease the negative angle to tilt the camera more downwards
+    angle = -1 // Adjust this value as needed
+    axis = Rotate.XAxis
+
+
+  private val cameraRotationY = new Rotate :
+    // Adjust this angle as needed to center the grid
+    angle = 0
+    axis = Rotate.YAxis
+
+
   camera.transforms.addAll(cameraRotationX, cameraRotationY)
 
-
-  // Function to set the camera position based on a CameraPosition object
-  private def setCameraPosition(position: CameraPosition): Unit =
+  // Function to update the camera position based on a CameraPosition object
+  def setCameraPosition(position: CameraPosition): Unit =
     camera.translateX = position.x
     camera.translateY = position.y
-    camera.translateZ = position.z - cameraOffset
+    camera.translateZ = position.z
     cameraRotationX.angle = position.rotationX
     cameraRotationY.angle = position.rotationY
 
-
-  // Zoom in
+  // Zoom in function
   def zoomIn(): Unit =
-    camera.translateZ.set(camera.translateZ.value + boxSize)
+    camera.translateZ = camera.translateZ() + boxSize
 
-  // Zoom out
+  // Zoom out function
   def zoomOut(): Unit =
-    camera.translateZ.set(camera.translateZ.value - boxSize)
+    camera.translateZ = camera.translateZ() - boxSize
 
-  // Function to get the current camera position
-  def rotateCamera(rotationY: Double): Unit =
-    cameraRotationY.angle.value += rotationY
+  // Function to rotate the camera
+  def rotateCamera(rotationAngle: Double): Unit =
+    cameraRotationY.angle = cameraRotationY.angle() + rotationAngle
+
+
+  // Function to rotate the camera based on the snake's direction
+  def rotateCameraBasedOnSnakeDirection(direction: (Int, Int, Int)): Unit = {
+    direction match {
+      case (1, 0, 0)  => cameraRotationY.angle = 0    // Snake moving right
+      case (-1, 0, 0) => cameraRotationY.angle = 180  // Snake moving left
+      case (0, 0, 1)  => cameraRotationY.angle = 90   // Snake moving forward
+      case (0, 0, -1) => cameraRotationY.angle = -90  // Snake moving backward
+      case _          => // Optionally handle other cases or do nothing
+    }
+  }
+
 
 

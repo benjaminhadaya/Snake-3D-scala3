@@ -23,5 +23,6 @@
 		<level name="sbt: org.scala-lang:scala-library:2.13.10:jar" value="project"/>
 		<level name="sbt: org.scala-lang:scala3-library_3:3.2.2:jar" value="project"/>
 		<level name="sbt: org.scalafx:scalafx_3:19.0.0-R30:jar" value="project"/>
+		<level name="javafx-sdk-21.0" value="project"/>
 	</levels>
 </component>

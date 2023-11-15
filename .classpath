@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/11"/>
+	<classpathentry kind="src" path="src/main/scala"/>
+	<classpathentry kind="src" path="src/test/scala"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/sbt: org.openjfx:javafx-base:19:jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/sbt: org.openjfx:javafx-base:19:mac-aarch64:jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/sbt: org.openjfx:javafx-controls:19:jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/sbt: org.openjfx:javafx-controls:19:mac-aarch64:jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/sbt: org.openjfx:javafx-fxml:19:jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/sbt: org.openjfx:javafx-fxml:19:mac-aarch64:jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/sbt: org.openjfx:javafx-graphics:19:jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/sbt: org.openjfx:javafx-graphics:19:mac-aarch64:jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/sbt: org.openjfx:javafx-media:19:jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/sbt: org.openjfx:javafx-media:19:mac-aarch64:jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/sbt: org.openjfx:javafx-swing:19:jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/sbt: org.openjfx:javafx-swing:19:mac-aarch64:jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/sbt: org.openjfx:javafx-web:19:jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/sbt: org.openjfx:javafx-web:19:mac-aarch64:jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/sbt: org.scala-lang:scala-library:2.13.10:jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/sbt: org.scala-lang:scala3-library_3:3.2.2:jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/sbt: org.scalafx:scalafx_3:19.0.0-R30:jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/javafx-sdk-21.0"/>
+	<classpathentry kind="output" path="target/scala-3.2.2/classes"/>
+</classpath>

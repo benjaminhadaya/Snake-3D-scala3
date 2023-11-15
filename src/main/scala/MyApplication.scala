@@ -17,7 +17,7 @@ object MyApplication extends JFXApp3:
   val boxSize = 50
   val gridSize = 10
   val camera = new PerspectiveCamera(false) {
-    fieldOfView = 45
+    fieldOfView = 60
     translateX = gridSize * boxSize / 2
     translateY = gridSize * boxSize / 2
     translateZ = -3 * gridSize * boxSize
@@ -26,22 +26,22 @@ object MyApplication extends JFXApp3:
   val cameraController = new CameraController(camera, gridSize, boxSize)
 
   // Function to create outer surface boxes for the grid
-  def createOuterSurfaceBoxes(): Seq[Box] =
-    for {
-      x <- 0 until gridSize
-      y <- 0 until gridSize
-      z <- 0 until gridSize
-      // Include only boxes on the outer surface of the grid
-      if x == 0 || x == gridSize - 1 || y == 0 || y == gridSize - 1 || z == 0 || z == gridSize - 1
-    } yield new Box(boxSize, boxSize, boxSize) {
-      translateX = x * boxSize
-      translateY = y * boxSize
-      translateZ = z * boxSize
-      material = new PhongMaterial {
-        diffuseColor = Color.rgb(192, 192, 192, 0.5)
-        specularColor = Color.rgb(192, 192, 192, 0.5)
+    def createOuterSurfaceBoxes(): Seq[Box] =
+      for {
+        x <- 0 until gridSize
+        y <- 0 until gridSize
+        z <- 0 until gridSize
+        if x == 0 || x == gridSize - 1 || y == 0 || y == gridSize - 1 || z == 0 || z == gridSize - 1
+      } yield new Box(boxSize, boxSize, boxSize) {
+        translateX = x * boxSize
+        translateY = y * boxSize
+        translateZ = z * boxSize
+        material = new PhongMaterial {
+          diffuseColor = Color.rgb(100, 100, 250, 0.8)
+          specularColor = Color.rgb(100, 100, 100)
+        }
       }
-    }
+
   def start(): Unit =
 
     stage = new JFXApp3.PrimaryStage:
@@ -57,7 +57,7 @@ object MyApplication extends JFXApp3:
       children = boxes
     }
 
-    // Add the PointLight to the group
+    /* Add the PointLight to the group
     val light = new PointLight {
       color = Color.White
       translateX = boxSize * gridSize / 2
@@ -65,6 +65,7 @@ object MyApplication extends JFXApp3:
       translateZ = -boxSize * gridSize / 2
 }
     group.children.add(light)
+    */
 
     val myScene = new Scene{
       content = group
