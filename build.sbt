@@ -7,3 +7,4 @@ lazy val root = (project in file("."))
     name := "Snake3D project",
     libraryDependencies += "org.scalafx" % "scalafx_3" % "19.0.0-R30"
   )
+
